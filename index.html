@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkFlux</title>
+    <!--<link rel = "stylesheet" href="LinkFlux.css"> -->
+</head>
+<body>
+    <div>
+        <input id="videoURL" type="text" placeholder="https://www.youtube.com/watch?v=ZoriniX123">
+        <button id="Send_Button">GET VIDEO</button>
+    </div>
+
+    <div>
+        <p id="title"></p>
+        <img id="thumbnail" width="380px">
+    </div>
+
+    <div id="optionslist">
+        <select id="Menu">
+            <option value="1080p">1080p</option>
+            <option value="720p">720p</option>
+            <option value="480p">480p</option>
+            <option value="mp3">MP3 Audio</option>
+            <option value="thumbnail">Thumbnail</option>
+        </select>
+        <button id="Download_Button">DOWNLOAD VIDEO</button>
+    </div>
+
+
+
+
+
+        
+    </div>
+
+    <script>
+        document.getElementById("Send_Button").addEventListener("click", async function()
+        {
+            const YT_URL = document.getElementById("videoURL").value;
+            
+            const response = await fetch("http://localhost:18080/getVideo", 
+
+                {
+                    method: "POST",
+                    body: YT_URL
+                });
+  
+            const data = await response.json();
+
+            document.getElementById("title").textContent = data.title;
+            document.getElementById("thumbnail").src = data.thumbnail;
+
+        });
+
+       document.getElementById("Download_Button").addEventListener("click", async function()
+            {
+                const YT_URL = document.getElementById("videoURL").value;
+                const Order = document.getElementById("Menu").value;
+
+                const response = await fetch("http://localhost:18080/download?quality=" + Order, {
+                    method: "POST",
+                    body: YT_URL
+                });
+
+                const text = await response.text();
+                console.log(response.status, text);
+            }); 
+
+    </script>
+
+
+
+</body>
+</html>
