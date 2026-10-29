@@ -90,7 +90,7 @@ int main() {
             std::string ticket_of_order = req.url_params.get("quality");
 
             //cout to the terminal to verify that the video URL and ticket are correct.
-            std::cout << " |--- Progessing download video: " << videoURL << " with order : " << ticket_of_order << " ---|" << std::endl; 
+            std::cout << "|--- Progessing download video: " << videoURL << " with order : " << ticket_of_order << " ---|" << std::endl; 
 
             std::string command = "yt-dlp.exe --dump-json " + videoURL;
 
@@ -106,7 +106,6 @@ int main() {
             }
             pclose(pipe);
 
-//          std::cout << "RAW: [" << raw_json << "]" << std::endl;
             json data = json::parse(raw_json); //parse json files in the bag
 
                 //Get the Audio FormatID first
@@ -118,7 +117,7 @@ int main() {
                         }
                     }   
                 }  
-/*MP3 AUDIO*/   std::cout << "Audio Format ID : " << Audio_FormatID << std::endl;
+/*MP3 AUDIO*/   std::cout << "Audio       Format ID : " << Audio_FormatID << std::endl;
 
 
 //"acodec": "none"
@@ -131,10 +130,35 @@ int main() {
                         }
                     }   
                 }  
-/*VIDEO 480p*/  std::cout << "Video 480p Format ID : " << Video480p_FormatID << std::endl;
+/*VIDEO 480p*/  std::cout << "Video  480p Format ID : " << Video480p_FormatID << std::endl;
+
+                //  720p Video FormatID
+                std::string Video720p_FormatID = "";
+                for (auto& format : data["formats"]) {
+                    if (format.contains("format_id") && format.contains("ext") && format.contains("height") && format.contains("acodec") && format.contains("format_note")) {
+                        if (format["ext"] == "mp4" && format["acodec"] == "none" && (format["height"] == 720 || format["height"] == 1280) && (format["format_note"] == "720p" || format["format_note"] == "720p60" )
+                        && Video720p_FormatID.empty()) {
+
+                            Video720p_FormatID = format["format_id"];
+                        }
+                    }
+                }
+/*VIDEO 720p*/  std::cout << "Video  720p Format ID : " << Video720p_FormatID << std::endl;
+
+                //  1080p Video FormatID
+                std::string Video1080p_FormatID = "";
+                for (auto& format : data["formats"]) {
+                    if (format.contains("format_id") && format.contains("ext") && format.contains("height") && format.contains("acodec") && format.contains("format_note")) {
+                        if (format["ext"] == "mp4" && format["acodec"] == "none" && (format["height"] == 1080 || format["height"] == 1920) && (format["format_note"] == "1080p" || format["format_note"] == "1080p60" )
+                        && Video1080p_FormatID.empty()) {
+
+                            Video1080p_FormatID = format["format_id"];
+                        }
+                    }
+                }
+/*VIDEO 1080p*/ std::cout << "Video 1080p Format ID : " << Video1080p_FormatID << std::endl;            
 
                 //set up the download command based on the user's order.
-                //
                 std::string video_id = data["id"];    
                 std::string file_name = "";
                 std::string download_command = "";
@@ -157,17 +181,27 @@ int main() {
                         download_command = "yt-dlp.exe -f \"" + Audio_FormatID + "+" + Video480p_FormatID + "\" --merge-output-format mp4 -o \"Oven/%(id)s_480p.mp4\" " + videoURL;
                         file_name = video_id + "_480p.mp4";
                     }
+                        // -- MP4 720p --
+                    else if (ticket_of_order == "720p")
+                    {
+                        download_command = "yt-dlp.exe -f \"" + Audio_FormatID + "+" + Video720p_FormatID + "\" --merge-output-format mp4 -o \"Oven/%(id)s_720p.mp4\" " + videoURL;
+                        file_name = video_id + "_720p.mp4";
+                    }                    
+                        // -- MP4 1080p --
+                    else if (ticket_of_order == "1080p")
+                    {
+                        download_command = "yt-dlp.exe -f \"" + Audio_FormatID + "+" + Video1080p_FormatID + "\" --merge-output-format mp4 -o \"Oven/%(id)s_1080p.mp4\" " + videoURL;
+                        file_name = video_id + "_1080p.mp4";
+                    }          
+                    
                     else 
                     {
-                        return make_response(400, "unknown option");
+                        return make_response(400, "Unknown Option");
                     }
-                    //tạm thời được
-        //ex : yt-dlp -f "135+140" --merge-output-format mp4 -o "downloads/%(id)s_480p.mp4" https://www.youtube.com/watch?v=Oe8bDJAQx8Q
-        //        std::string download_command = "yt-dlp.exe -f \"" + Audio_FormatID + "+" + Video480p_FormatID //  \" là dấu "
-        //            + "\" --merge-output-format mp4 -o \"Oven/%(id)s_480p.mp4\" " + videoURL;
-                //after got the ingredients, chef puts it inside the Oven!
-            system(download_command.c_str());
-            return make_response(200, file_name);
+                
+            // --- after got the ingredients, chef puts it in the Oven! ---
+            system(download_command.c_str());       // cooking
+            return make_response(200, file_name);   // food's ready !  take it out.
 
         }
         catch (const std::exception& e)        
