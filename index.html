@@ -9,7 +9,7 @@
 <body>
     <div>
         <input id="videoURL" type="text" placeholder="https://www.youtube.com/watch?v=ZoriniX123">
-        <button id="Send_Button">GET VIDEO</button>
+        <button id="Send_Button" type="button">GET VIDEO</button>
     </div>
 
     <div>
@@ -25,7 +25,7 @@
             <option value="mp3">MP3 Audio</option>
             <option value="thumbnail">Thumbnail</option>
         </select>
-        <button id="Download_Button">DOWNLOAD VIDEO</button>
+        <button id="Download_Button" type="button">DOWNLOAD VIDEO</button>
     </div>
 
 
@@ -59,13 +59,20 @@
                 const YT_URL = document.getElementById("videoURL").value;
                 const Order = document.getElementById("Menu").value;
 
-                const response = await fetch("http://localhost:18080/download?quality=" + Order, {
+                const response = await fetch("http://localhost:18080/download?quality=" + Order, 
+                {
                     method: "POST",
                     body: YT_URL
                 });
 
-                const text = await response.text();
-                console.log(response.status, text);
+                const fileName = await response.text();
+                console.log("fileName:", fileName);
+                const waiter = document.createElement("a"); // a = anchor, used to have download link
+                waiter.href = "http://localhost:18080/file/" + fileName;
+                waiter.download = fileName;
+                document.body.appendChild(waiter);
+                waiter.click();
+                waiter.remove();
             }); 
 
     </script>
