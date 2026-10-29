@@ -1,4 +1,4 @@
-//g++ main.cpp -I"/đường/dẫn/tới/Crow-1.3.3/include" -lws2_32 -lmswsock -o server.exe
+//g++ main.cpp -I"/Path/To/Crow-1.3.3/include" -lws2_32 -lmswsock -o server.exe
 //g++ Kitchen.cpp -I"D:/CodeVault/Code Files/Crow-1.3.3/include" -lws2_32 -lmswsock -o server.exe
 #include <iostream>
 #include <cstdio>
@@ -20,6 +20,8 @@ using json = nlohmann::json;
 int main() {
     
     system("pip install --upgrade yt-dlp > nul 2>&1");
+
+    system("del /Q Oven\\*"); //Clean up before cook (\\ = \ in C++. Q = Quiet. no comfirmation needed)
     
     crow::SimpleApp app;
         // ----- API 1: used to return the title and thumbnail to the frontend. ensure the video that the user wants to download
@@ -83,17 +85,17 @@ int main() {
 
         try 
         {
-            auto package = json::parse(req.body);
+    //      auto package = json::parse(req.body);
             std::string videoURL = req.body;
             std::string ticket_of_order = req.url_params.get("quality");
 
             //cout to the terminal to verify that the video URL and ticket are correct.
-            std::cout << "Progessing download video: " << videoURL << " with order : " << ticket_of_order << std::endl; 
+            std::cout << " |--- Progessing download video: " << videoURL << " with order : " << ticket_of_order << " ---|" << std::endl; 
 
             std::string command = "yt-dlp.exe --dump-json " + videoURL;
 
             FILE* pipe = popen(command.c_str(), "r");
-            if (!pipe) {
+            if (!pipe) {        
                 return make_response(500, "We got some problem, please try again later");
             }
 
@@ -104,12 +106,8 @@ int main() {
             }
             pclose(pipe);
 
-            std::cout << "RAW: [" << raw_json << "]" << std::endl;
+//          std::cout << "RAW: [" << raw_json << "]" << std::endl;
             json data = json::parse(raw_json); //parse json files in the bag
-                //take the THUMBNAIL out of the bag (again...)
-                std::string video_thumbnail = data["thumbnail"];
-
-
 
                 //Get the Audio FormatID first
                 std::string Audio_FormatID = "";
@@ -136,21 +134,28 @@ int main() {
 /*VIDEO 480p*/  std::cout << "Video 480p Format ID : " << Video480p_FormatID << std::endl;
 
                 //set up the download command based on the user's order.
+                //
+                std::string video_id = data["id"];    
+                std::string file_name = "";
                 std::string download_command = "";
+
                         // -- Thumbnail --
                     if (ticket_of_order == "thumbnail") 
                     {
-                        download_command = "yt-dlp.exe --skip-download --write-thumbnail -o \"Oven/%(id)s\" + videoURL";
+                        download_command = "yt-dlp.exe --skip-download --write-thumbnail --convert-thumbnails jpg -o \"Oven/%(id)s\" " + videoURL;
+                        file_name = video_id + ".jpg";
                     }
                         // -- MP3 AUDIO --
                     else if (ticket_of_order == "mp3")
                     {
                         download_command = "yt-dlp.exe -x --audio-format mp3 -o \"Oven/%(id)s.mp3\" " + videoURL;
+                        file_name = video_id + ".mp3";
                     }
                         // -- MP4 480p  --
                     else if (ticket_of_order == "480p")
                     {
                         download_command = "yt-dlp.exe -f \"" + Audio_FormatID + "+" + Video480p_FormatID + "\" --merge-output-format mp4 -o \"Oven/%(id)s_480p.mp4\" " + videoURL;
+                        file_name = video_id + "_480p.mp4";
                     }
                     else 
                     {
@@ -162,15 +167,36 @@ int main() {
         //            + "\" --merge-output-format mp4 -o \"Oven/%(id)s_480p.mp4\" " + videoURL;
                 //after got the ingredients, chef puts it inside the Oven!
             system(download_command.c_str());
-            return make_response(200, "download successfully!");
+            return make_response(200, file_name);
 
         }
         catch (const std::exception& e)        
         {
-            std::cout << "Loi xay ra o /download: " << e.what() << std::endl;
+            std::cout << "Error in downloading process" << e.what() << std::endl;
             return make_response(500, "Internal Server Error");                          
-        }              
+        }        
     });            
+
+/*------------------------------------------------------------------------------------------*/
+
+    CROW_ROUTE(app, "/file/<string>")
+    ([](const crow::request& req, std::string name)
+    {
+        // Security : Prevent users from exiting the Oven directory
+        if (name.find("/") != std::string::npos || name.find("\\") != std::string::npos || name.find("..") != std::string::npos)
+            {   
+                return make_response(400, "Nice try.");
+            }
+        // Create a response object and call the crow function to point to a file in the Oven directory
+        crow::response res;
+        res.set_static_file_info("Oven/" + name);
+        
+        //add 1 header to tell the browser "This file that needs to be saved"
+        res.set_header("Content-Disposition", "attachment; filename=\"" + name + "\"");
+        
+        //return res object containing the file for the browser to Download !
+        return res; 
+    });
 
     app.port(18080).run();
 }
