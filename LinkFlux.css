@@ -1,0 +1,327 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80%;
+    padding-top: 20px;
+    padding-left: 300px;
+}
+
+.Logo_Block {
+    display: flex;
+    flex-direction: column;;
+    font-size: 50px;
+}
+
+.logo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:white;
+}
+.Flux {
+     
+    font-style: italic;
+    background: linear-gradient(
+        90deg,
+        #00e5cc,
+        #00aaff
+    );
+    background-clip: text;
+    color: transparent;
+}
+.Slogan {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+    color:white;    
+    position: relative;
+    top: -100px;
+}
+.Enjoy {
+    background: linear-gradient(
+        90deg,
+        #00e5cc,
+        #00aaff
+    );
+    background-clip: text;
+    color: transparent;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+    background: linear-gradient(
+        135deg,
+        #071426,
+        #102c45,
+        #087e83
+    );
+    background-repeat: no-repeat;
+}
+
+.Input_Bar {
+    background:linear-gradient(
+        135deg,
+        rgba(37, 43, 55, 0.9),
+        rgba(27, 38, 53, 0.6)
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0px 10px 20px;
+    width: 100%;
+    max-width: 1200px;
+    height: 50px;
+    font-size: 30px;
+}
+
+#videoURL {
+    flex-grow: 1;
+    background : transparent;
+    border:none;
+    outline: none;
+    color: white;
+    font-size: 20px;
+    padding-left: 12px;
+    
+}
+
+#Send_Button {
+
+    display: flex;align-items: center; justify-content: center; gap:20px;
+    background: linear-gradient(
+        135deg,
+        #2dd4bf,
+        #0ea5e9
+    );
+    
+    font-size: 20px;
+    height: 70px;
+    width: 200px;
+    border-radius: 9999px;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    white-space: nowrap;
+    cursor: pointer;
+    
+    }
+    
+#Send_Button:hover{
+    filter: brightness(1.15);
+}
+
+.VideoInfoContainer {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    min-height: 230px;
+    margin: 40px auto;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    box-sizing: border-box;
+    
+    border: 1px solid black;
+    background:linear-gradient(
+        135deg,
+        rgba(26, 41, 77, 0.9),
+        rgba(16, 54, 66, 0.7)
+    );
+}
+
+.Thumbnail_Box {
+    margin-left: 25px;
+    flex-shrink: 0;
+    width: 320px;   
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1)
+}
+
+.Thumbnail_Box img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info_video {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+}
+
+.check_badge {
+    display: flex;
+    gap: 7px;
+    color: rgb(10, 240, 67);
+
+}
+
+.info_video h3 {
+    
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    color: whitesmoke;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.divider {
+    color: #00aaff;
+    width: 100%;
+    border:none;
+    max-width: 835px;
+    border-top: 1px solid rgba(87, 105, 151, 0.5);
+    padding: 5px;
+}
+.optionlist {
+    display: flex;
+    align-items: center;
+}
+
+.Menu_Scroll {
+    background: rgba(26, 41, 77, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);   
+    border-radius: 100px;
+    padding: 10px 50px;
+    color:#f8fafc;
+    cursor: pointer;
+    width: 100%;
+    max-width: 250px;
+}
+.Menu_Scroll:hover {
+    border-color: rgba(17, 147, 167, 0.425);
+}
+#Menu {
+    font-size:25px;
+}
+#Download_Button {
+    background: linear-gradient(
+        135deg,
+        #2dd4bf,
+        #0ea5e9
+    );
+    padding: 0px 14px;
+    margin-left: 15px;
+    font-size: 22px;
+    height: 51px;
+    width: 250px;
+    border-radius: 9999px;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    white-space: nowrap;
+    cursor:pointer;
+}
+#Download_Button:hover{
+    filter: brightness(1.15);
+}
+#Download_Button svg {
+    stroke-width: 2.5;
+    height: 23px;
+    width: 30px;
+}
+
+.hidden {
+    display: none !important;
+}
+.Loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto;
+    color: rgb(47, 30, 229);
+}
+.Loading h1{
+    color: whitesmoke;
+}
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid;
+    border-top-color:aqua;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg);}
+
+}
+
+.Error_msg {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+    
+    font-family: 'Segoe UI', system-ui, Verdana, sans-serif;
+    color: #ff8585;
+    font-size: 30px;
+    font-weight: 600;
+    background: rgba(255, 75, 75, 0.1);
+    border: 1px solid rgba(255, 90, 90, 0.2);
+    border-radius: 15px;
+
+    margin: 30px;
+    padding: 10px 100px;    
+    
+    animation: FadeIn 0.25 ease
+}
+
+.Error_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: 18px;
+    height: 18px;
+    
+    border: 2px solid;
+    border-radius: 50%;
+
+    font-size: 15px;
+    font-weight: bold;
+}
+
+@keyframes FadeIn {
+    from
+    {
+        opacity: 0;
+        transform: translateY(-5px);    
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+
+
+.About {
+    text-align: center;
+    color: whitesmoke;
+    
+}
+
+/*.disabledbtn {
+  opacity: 0.6;
+  cursor: not-allowed;
+}*/

@@ -4,53 +4,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkFlux</title>
-    <!--<link rel = "stylesheet" href="LinkFlux.css"> -->
+    <link rel = "stylesheet" href="LinkFlux.css">
 </head>
 <body>
-    <div>
-        <input id="videoURL" type="text" placeholder="https://www.youtube.com/watch?v=ZoriniX123">
-        <button id="Send_Button" type="button">GET VIDEO</button>
-    </div>
 
-    <div>
-        <p id="title"></p>
-        <img id="thumbnail" width="380px">
-    </div>
+<!-- Header -->
 
-    <div id="optionslist">
-        <select id="Menu">
-            <option value="1080p">1080p</option>
-            <option value="720p">720p</option>
-            <option value="480p">480p</option>
-            <option value="mp3">MP3 Audio</option>
-            <option value="thumbnail">Thumbnail</option>
-        </select>
-        <button id="Download_Button" type="button">DOWNLOAD VIDEO</button>
-    </div>
+    <header>
+        <div class="Logo_Block">
+            <h1 class="logo">
+                Link<span class="Flux">Flux</span>
+            </h1>
+            <p class="Slogan">
+                Paste. Download. <span class="Enjoy">Enjoy.</span></p>
+        </div>
 
-
-
-
-
+        <nav class="navigations">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+        </nav>
         
+    </header>
+    
+<!-- Input Link Area -->
+
+    <div class="Input_Bar">
+        <span id="icon">🔗</span>
+        <input id="videoURL" type="text" placeholder="https://www.youtube.com/watch?v=ZoriniX123">
+        <button id="Send_Button" type="button">
+            <span class="search_video">🔍︎</span>Get Video</button>
     </div>
+
+<!-- Show user video Area -->
+<section class="VideoInfoContainer hidden" id="Container">
+        <!-- THUMBNAIL -->
+    <div class="Thumbnail_Box">
+        <img id="thumbnail">
+    </div>
+
+        <!-- Infomation & Control -->
+
+    <div class ="info_video">
+        <!-- STATUS CHECK -->
+        <div class="check_badge">
+            <span class="check_tick">✓⃝</span>Ready to Download
+        </div>
+        <!-- Title -->
+    <h3 id="title"></h3>
+    
+        <!-- Dividing line -->
+    <hr class="divider">
+
+<!-- Menu Select Area -->
+
+        <div class="optionslist">
+            <select id="Menu" class="Menu_Scroll">
+                <option value="1080p">MP4ㆍ1080p</option>
+                <option value="720p">MP4ㆍ720p</option>
+                <option value="480p">MP4ㆍ480p</option>
+                <option value="mp3">MP3ㆍAudio</option>
+                <option value="thumbnail">Thumbnail</option>
+            </select>
+            <button id="Download_Button" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+            Download Video</button>
+        </div>
+    </div>    
+</section>
+        <!-- Loading Status -->
+    <div class="Loading hidden" id ="loading_status">
+        <div class="spinner"></div>
+        <h1>Processing...</h1>
+    </div>
+        <!-- Error -->
+    <div class="Error_msg hidden" id="error_msg">
+            <span class="Error_icon">!</span>
+        <span>Invalid URL. Please Try Again.</span>
+    </div>
+
+    <!-- Features Cards -->
+<section class="feature_section">
+    <div class="feature_grid">
+        <div class="feature_card">
+            <span class="feature_icon">⚡</span>
+
+
+            
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Footer -->
+  
+    <footer>
+        <div class="About">
+            <h2>About LinkFlux</h2>
+            <p>LinkFlux is a personal, non-commercial project created solely for self-study,
+               portfolio building, and skill enhancement. There is absolutely no commercial 
+               purpose or profit-making intention behind it. It serves as a practical sandbox 
+               to explore backend system architecture, client-server communication, and web development fundamentals.</p>
+        </div>
+
+        <p>LinkFlux Project</p>
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- "Excuse me!" -->
 
     <script>
         document.getElementById("Send_Button").addEventListener("click", async function()
         {
             const YT_URL = document.getElementById("videoURL").value;
+
+            //Display/Hidden feature 
+
+            const ErrorMsg = document.getElementById("error_msg");
+            ErrorMsg.classList.add("hidden");
+
+            const Container = document.getElementById("Container");
+            const loading_status = document.getElementById("loading_status");
             
-            const response = await fetch("http://localhost:18080/getVideo", 
 
-                {
-                    method: "POST",
-                    body: YT_URL
-                });
-  
-            const data = await response.json();
+            //Display & Hidden phase 1: Hide the Container and loading status
+            Container.classList.add("hidden");            
+            loading_status.classList.remove("hidden");
 
-            document.getElementById("title").textContent = data.title;
-            document.getElementById("thumbnail").src = data.thumbnail;
+            try 
+            {
+                const response = await fetch("http://localhost:18080/getVideo", 
+
+                    {
+                        method: "POST",
+                        body: YT_URL
+                    });
+    
+                const data = await response.json();
+
+                document.getElementById("title").textContent = data.title;
+                document.getElementById("thumbnail").src = data.thumbnail;
+
+            //Display & Hidden phase 2: Hide the loading status, display the Container
+
+
+                Container.classList.remove("hidden");            
+                loading_status.classList.add("hidden");
+
+            }
+            catch(error)
+            {
+            //Display & Hidden unexpected phase : Hide both loading status and Container
+                loading_status.classList.add("hidden");
+
+                const ErrorMsg = document.getElementById("error_msg");
+                ErrorMsg.classList.remove("hidden");
+                
+                console.log("Error : ", error);
+            }
+
 
         });
 
