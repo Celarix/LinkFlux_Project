@@ -1,3 +1,19 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+    background: linear-gradient(
+        135deg,
+        #071426,
+        #102c45,
+        #087e83
+    );
+    background-repeat: no-repeat;
+    margin: 0px;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -45,22 +61,9 @@ header {
     color: transparent;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    
-    background: linear-gradient(
-        135deg,
-        #071426,
-        #102c45,
-        #087e83
-    );
-    background-repeat: no-repeat;
-}
+    /* --------------------------------------------------------- */
 
-.Input_Bar {
+    .Input_Bar {
     background:linear-gradient(
         135deg,
         rgba(37, 43, 55, 0.9),
@@ -114,6 +117,8 @@ body {
     filter: brightness(1.15);
 }
 
+    /* --------------------------------------------------------- */
+
 .VideoInfoContainer {
     display: flex;
     gap: 20px;
@@ -139,10 +144,10 @@ body {
 .Thumbnail_Box {
     margin-left: 25px;
     flex-shrink: 0;
+    overflow: hidden;
     width: 320px;   
     height: 180px;
     border-radius: 12px;
-    overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1)
 }
 
@@ -190,6 +195,10 @@ body {
     align-items: center;
 }
 
+.Menu_icon {
+    width: 30px;
+
+}
 .Menu_Scroll {
     background: rgba(26, 41, 77, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.15);   
@@ -215,7 +224,7 @@ body {
     padding: 0px 14px;
     margin-left: 15px;
     font-size: 22px;
-    height: 51px;
+    height: 55px;
     width: 250px;
     border-radius: 9999px;
     border: none;
@@ -229,13 +238,16 @@ body {
 }
 #Download_Button svg {
     stroke-width: 2.5;
-    height: 23px;
+    height: 25px;
     width: 30px;
 }
 
 .hidden {
     display: none !important;
 }
+
+    /* --------------------------------------------------------- */
+
 .Loading {
     display: flex;
     flex-direction: column;
@@ -308,20 +320,124 @@ body {
     }
 }
 
+    /* --------------------------------------------------------- */
 
-
-
-
-
-
-
-.About {
+.features_header {
     text-align: center;
-    color: whitesmoke;
-    
+}
+.features_header h2 {
+    font-size: 30px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin: 75px;
+    margin-bottom: 0px;
+    background: linear-gradient(
+        135deg,
+        #0ea5e9,
+        #2dd4bf 
+    );
+    background-clip: text;
+    color: transparent;
 }
 
-/*.disabledbtn {
-  opacity: 0.6;
-  cursor: not-allowed;
-}*/
+.features_header p {
+    color: #64748b;
+    font-size: 17px;
+}
+
+.feature_section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto 50px;
+    padding: 0 20px;
+    /*box-sizing: border-box;*/
+}
+
+.feature_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.feature_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.7),
+        rgba(30, 41, 59, 0.5),
+        rgba(22, 82, 120, 0.5)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: 12px;
+    transition: all 0.3s;
+    width: 500px;
+    height: 100%;
+    max-height: 100px;
+}
+
+
+.feature_card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 10px 25px rgb(0, 0, 0, 0.5);
+}
+
+.feature_icon {
+    width: 30px;
+    margin-bottom:-15px;
+
+}
+
+.feature_card h3 {
+    color: white;
+    font-size: 22px
+    
+}
+.feature_card p {
+    color: #becfe6;
+    margin-top: -20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+    /* --------------------------------------------------------- */
+
+footer {
+    background:linear-gradient(
+        180deg,
+        rgb(0, 0, 0),
+        rgb(4, 25, 49)
+    );
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    padding: 25px 40px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 18px;
+    color: #dee8f7;
+}
+.Contact {
+    padding-left: 50px;
+}
+
+.Connects {
+    padding-left: 50px;
+}
+
+.DO_NOT_CONTACT_ME {
+    opacity: 0.05;
+}
+
+.Github_icon {
+    background-color: white;
+    border-radius: 10px;
+}
+.X_icon {
+    cursor: not-allowed;
+}
