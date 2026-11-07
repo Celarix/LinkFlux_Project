@@ -1,10 +1,11 @@
 //g++ main.cpp -I"/Path/To/Crow-1.3.3/include" -lws2_32 -lmswsock -o server.exe
-//g++ Kitchen.cpp -I"D:/CodeVault/Code Files/Crow-1.3.3/include" -lws2_32 -lmswsock -o server.exe
 #include <iostream>
 #include <cstdio>
 #include <string>
 #include "json.hpp"
 #include "crow.h"
+#include <thread>
+#include <chrono>
 
 using json = nlohmann::json;
 
@@ -22,6 +23,26 @@ int main() {
     system("pip install --upgrade yt-dlp > nul 2>&1");
 
     system("del /Q Oven\\*"); //Clean up before cook (\\ = \ in C++. Q = Quiet. no comfirmation needed)
+    
+    // Timer 1 : Cleaner
+    std::thread([]() {
+
+        while (true)
+        {
+            std::this_thread::sleep_for(std::chrono::hours(4));
+            system("del /Q Oven\\*");
+        }
+    }).detach();
+    
+    // Timer 2 : Upgrade the Kitchen
+    std::thread([]() {
+
+        while (true) 
+        {
+            std::this_thread::sleep_for(std::chrono::hours(24));
+            system("pip install --upgrade yt-dlp > nul 2>&1");
+        }
+    }).detach();
     
     crow::SimpleApp app;
         // ----- API 1: used to return the title and thumbnail to the frontend. ensure the video that the user wants to download
@@ -202,8 +223,8 @@ int main() {
             // --- after got the ingredients, chef puts it in the Oven! ---
             system(download_command.c_str());       // cooking
             return make_response(200, file_name);   // food's ready !  take it out.
-
         }
+        
         catch (const std::exception& e)        
         {
             std::cout << "Error in downloading process" << e.what() << std::endl;
