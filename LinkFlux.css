@@ -1,9 +1,12 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    
     background: linear-gradient(
         135deg,
         #071426,
@@ -13,6 +16,79 @@ body {
     background-repeat: no-repeat;
     margin: 0px;
 }
+ 
+/* --------------------------- HEADER ----------------------------- */
+
+.Navigation_Bar {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px;
+    background:linear-gradient(
+        135deg,
+        rgba(24, 29, 39, 0.9),
+        rgba(18, 25, 36, 0.8)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius:50px;
+    height: 60px;
+} 
+.Smol_Logo_Block {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    padding-left: 20px;
+}
+
+.Smol_Logo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:white;
+    display: flex;
+    align-items: center;
+}
+.Smol_Flux {
+    font-style: italic;
+    background: linear-gradient(
+        90deg,
+        #00e5cc,
+        #00aaff
+    );
+    background-clip: text;
+    color: transparent;
+}
+.Nav_Links {
+    font-size: 20px;
+    display: flex;
+    gap: 5px;
+}
+a {
+    text-decoration: none;
+}
+.Home_nav {
+    border-radius: 9999px;
+    padding: 2px 20px;
+    font-weight: bold;
+    color: rgb(226, 226, 226);
+    background: linear-gradient(
+        90deg,
+        #0c4453,
+        #07282c
+    );
+}
+.About_nav {
+    border-radius: 9999px;
+    padding: 2px 20px;
+    margin-right: 20px;
+    font-weight: bold;
+    color: rgb(226, 226, 226);
+    background: linear-gradient(
+        90deg,
+        #0c4453,
+        #07282c
+    )
+}
 
 header {
     display: flex;
@@ -20,21 +96,18 @@ header {
     align-items: flex-start;
     width: 80%;
     padding-top: 20px;
-    padding-left: 300px;
+    padding-left: 230px;
 }
-
 .Logo_Block {
     display: flex;
     flex-direction: column;;
     font-size: 50px;
 }
-
 .logo {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:white;
 }
 .Flux {
-     
     font-style: italic;
     background: linear-gradient(
         90deg,
@@ -61,9 +134,9 @@ header {
     color: transparent;
 }
 
-    /* --------------------------------------------------------- */
+/* --------------------------- INPUT ----------------------------- */
 
-    .Input_Bar {
+.Input_Bar {
     background:linear-gradient(
         135deg,
         rgba(37, 43, 55, 0.9),
@@ -77,10 +150,10 @@ header {
     padding: 10px 0px 10px 20px;
     width: 100%;
     max-width: 1200px;
-    height: 50px;
+    height: 70px;
     font-size: 30px;
+    margin-top: -50px;
 }
-
 #videoURL {
     flex-grow: 1;
     background : transparent;
@@ -89,18 +162,14 @@ header {
     color: white;
     font-size: 20px;
     padding-left: 12px;
-    
 }
-
 #Send_Button {
-
     display: flex;align-items: center; justify-content: center; gap:20px;
     background: linear-gradient(
         135deg,
         #2dd4bf,
         #0ea5e9
     );
-    
     font-size: 20px;
     height: 70px;
     width: 200px;
@@ -110,14 +179,12 @@ header {
     font-weight: bold;
     white-space: nowrap;
     cursor: pointer;
-    
-    }
-    
+}
 #Send_Button:hover{
     filter: brightness(1.15);
 }
 
-    /* --------------------------------------------------------- */
+/* --------------------------- INFO & DOWNLOAD ----------------------------- */
 
 .VideoInfoContainer {
     display: flex;
@@ -131,16 +198,14 @@ header {
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(12px);
-    box-sizing: border-box;
-    
     border: 1px solid black;
     background:linear-gradient(
         135deg,
         rgba(26, 41, 77, 0.9),
         rgba(16, 54, 66, 0.7)
     );
+    animation: FadeIn 0.5s ease-out;
 }
-
 .Thumbnail_Box {
     margin-left: 25px;
     flex-shrink: 0;
@@ -150,30 +215,24 @@ header {
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1)
 }
-
 .Thumbnail_Box img {
-
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .info_video {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     width: 800px;
 }
-
 .check_badge {
     display: flex;
-    gap: 7px;
+    align-items: center;
+    gap: 5px;
     color: rgb(10, 240, 67);
-
 }
-
 .info_video h3 {
-    
     margin-bottom: 12px;
     font-size: 20px;
     font-weight: 600;
@@ -194,10 +253,8 @@ header {
     display: flex;
     align-items: center;
 }
-
 .Menu_icon {
     width: 30px;
-
 }
 .Menu_Scroll {
     background: rgba(26, 41, 77, 0.9);
@@ -225,7 +282,8 @@ header {
     margin-left: 15px;
     font-size: 22px;
     height: 55px;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     border-radius: 9999px;
     border: none;
     color: rgb(0, 0, 0);
@@ -241,12 +299,11 @@ header {
     height: 25px;
     width: 30px;
 }
-
 .hidden {
     display: none !important;
 }
 
-    /* --------------------------------------------------------- */
+/* --------------------------- LOADING STATUS & ERROR ----------------------------- */
 
 .Loading {
     display: flex;
@@ -269,7 +326,6 @@ header {
 
 @keyframes spin {
     to { transform: rotate(360deg);}
-
 }
 
 .Error_msg {
@@ -277,7 +333,6 @@ header {
     align-items: center;
     justify-items: center;
     gap: 10px;
-    
     font-family: 'Segoe UI', system-ui, Verdana, sans-serif;
     color: #ff8585;
     font-size: 30px;
@@ -285,24 +340,18 @@ header {
     background: rgba(255, 75, 75, 0.1);
     border: 1px solid rgba(255, 90, 90, 0.2);
     border-radius: 15px;
-
     margin: 30px;
     padding: 10px 100px;    
-    
-    animation: FadeIn 0.25 ease
+    animation: FadeIn 0.5s ease
 }
-
 .Error_icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    
     width: 18px;
     height: 18px;
-    
     border: 2px solid;
     border-radius: 50%;
-
     font-size: 15px;
     font-weight: bold;
 }
@@ -320,7 +369,7 @@ header {
     }
 }
 
-    /* --------------------------------------------------------- */
+/* --------------------------- Feature Cards ----------------------------- */
 
 .features_header {
     text-align: center;
@@ -339,26 +388,22 @@ header {
     background-clip: text;
     color: transparent;
 }
-
 .features_header p {
     color: #64748b;
     font-size: 17px;
 }
-
 .feature_section {
     width: 100%;
     max-width: 1200px;
     margin: 20px auto 50px;
     padding: 0 20px;
-    /*box-sizing: border-box;*/
 }
-
 .feature_grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    padding-left: 50px;
 }
-
 .feature_card {
     display: flex;
     flex-direction: column;
@@ -376,10 +421,8 @@ header {
     transition: all 0.3s;
     width: 500px;
     height: 100%;
-    max-height: 100px;
+    max-height: 150px;
 }
-
-
 .feature_card:hover {
     transform: translateY(-5px);
     border-color: rgba(34, 211, 238, 0.4);
@@ -389,13 +432,10 @@ header {
 .feature_icon {
     width: 30px;
     margin-bottom:-15px;
-
 }
-
 .feature_card h3 {
     color: white;
     font-size: 22px
-    
 }
 .feature_card p {
     color: #becfe6;
@@ -416,8 +456,7 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
-    padding: 25px 40px;
-    box-sizing: border-box;
+    padding: 30px 40px;
     width: 100%;
     font-size: 18px;
     color: #dee8f7;
@@ -425,18 +464,16 @@ footer {
 .Contact {
     padding-left: 50px;
 }
-
 .Connects {
     padding-left: 50px;
 }
-
 .DO_NOT_CONTACT_ME {
     opacity: 0.05;
 }
-
-.Github_icon {
+.SVG_icon {
     background-color: white;
     border-radius: 10px;
+    margin-bottom: 1px;
 }
 .X_icon {
     cursor: not-allowed;
