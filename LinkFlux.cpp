@@ -94,7 +94,7 @@ int main() {
 /*------------------------------------------------------------------------------------------*/
 
         // ----- API 2: Used to download videos to the user's device after selecting "Order"
-    CROW_ROUTE(app,"/download")
+    CROW_ROUTE(app, "/download")
     .methods(crow::HTTPMethod::POST, crow::HTTPMethod::Options)
     ([](const crow::request& req)
     {
@@ -251,5 +251,26 @@ int main() {
         return res; 
     });
 
-    app.port(18080).run();
+    CROW_ROUTE(app, "/")([](const crow::request&) {
+        crow::response res;
+        res.set_static_file_info("LinkFlux.html");
+        return res;
+    });
+    CROW_ROUTE(app, "/LinkFlux.css")([](const crow::request&) {
+        crow::response res;
+        res.set_static_file_info("LinkFlux.css");
+        return res;
+    });   
+    CROW_ROUTE(app, "/LinkFlux.js")([](const crow::request&) {
+        crow::response res;
+        res.set_static_file_info("LinkFlux.js");
+        return res;
+    });
+
+    CROW_ROUTE(app, "/assets/<path>")([](const crow::request&, std::string PathAssets){
+        crow::response res;
+        res.set_static_file_info("assets/" + PathAssets);
+        return res;
+    });
+app.port(18080).run();
 }

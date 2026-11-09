@@ -1,7 +1,7 @@
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
-
 body {
     display: flex;
     flex-direction: column;
@@ -41,7 +41,6 @@ body {
     font-size: 25px;
     padding-left: 20px;
 }
-
 .Smol_Logo {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:white;
@@ -89,12 +88,12 @@ a {
         #07282c
     )
 }
-
 header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 80%;
+    width: 100%;
+    max-width: 900px;
     padding-top: 20px;
     padding-left: 230px;
 }
@@ -164,7 +163,10 @@ header {
     padding-left: 12px;
 }
 #Send_Button {
-    display: flex;align-items: center; justify-content: center; gap:20px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap:20px;
     background: linear-gradient(
         135deg,
         #2dd4bf,
@@ -172,7 +174,8 @@ header {
     );
     font-size: 20px;
     height: 70px;
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     border-radius: 9999px;
     border: none;
     color: rgb(0, 0, 0);
@@ -192,8 +195,7 @@ header {
     align-items: center;
     width: 100%;
     max-width: 1200px;
-    height: 100%;
-    min-height: 230px;
+    height: 230px;
     margin: 40px auto;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
@@ -244,13 +246,14 @@ header {
 .divider {
     color: #00aaff;
     width: 100%;
-    border:none;
-    max-width: 835px;
+    border: none;
+    width: 835px;
     border-top: 1px solid rgba(87, 105, 151, 0.5);
     padding: 5px;
 }
-.optionlist {
+.optionslist {
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
 .Menu_icon {
@@ -271,6 +274,7 @@ header {
 }
 #Menu {
     font-size:25px;
+    font-weight: 600;
 }
 #Download_Button {
     background: linear-gradient(
@@ -278,6 +282,9 @@ header {
         #2dd4bf,
         #0ea5e9
     );
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 0px 14px;
     margin-left: 15px;
     font-size: 22px;
@@ -444,7 +451,7 @@ header {
     text-align: center;
 }
 
-    /* --------------------------------------------------------- */
+/* --------------------------- Footer ----------------------------- */
 
 footer {
     background:linear-gradient(
@@ -477,4 +484,102 @@ footer {
 }
 .X_icon {
     cursor: not-allowed;
+}
+
+/* --------------------------- Responsive UI ----------------------------- */
+
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+
+
+    .Input_Bar {
+        display: flex;
+        gap: 0px;
+        height: 60px;
+    }
+
+    #chain_icon {
+        font-size: 20px;
+    }
+
+    #videoURL {
+        font-size: 15px;
+    
+    }
+    #Send_Button {
+        font-size: 15px;
+        height: 60px;   
+        max-width: 100px;
+        gap: 1px;
+    }
+    .VideoInfoContainer {
+        flex-direction: column;
+        width: 95%;
+        height: 370px;
+    }
+    .Thumbnail_Box {
+        margin: 20px 25px 0;
+    }
+
+    .info_video {
+        align-items: center;
+    }
+    .info_video h3 {
+        width: 100%;
+        max-width: 350px;
+        font-size: 17px;
+    }
+    .divider {
+        width: 350px;
+    }
+    
+    .Menu_Scroll {
+        width: 175px;
+        margin-left: 0px;
+        padding-left: 30px;
+    }
+    #Menu {
+        font-size: 17px;
+    }
+    #Download_Button {
+        width: 170px;
+        font-size: 15px;
+        height: 47px;
+    }
+    #Download_Button svg {
+        height: 20px;
+    }
+    .Error_msg{
+        display: flex;
+        font-size: 20px;
+        margin: 20px;
+        padding: 10px 20px;
+    }
+    .feature_section {
+        width: 100%;
+    }
+    .feature_grid {
+        grid-template-columns: 1fr;
+        padding-left: 0px;
+    }
+    .feature_card {
+        width: 350px;
+        max-height: 160px;
+    }
+    .feature_card p {
+        font-size: 17px;
+    }
+
+    footer {
+        grid-template-columns: 1fr;
+    }
+    .Contact {
+        padding: 0px;
+    }
+    .Connects {
+        padding: 0px; 
+    }
 }

@@ -1,25 +1,31 @@
 // "How can I help you, Sir?
 
+
+const Localhost_Server = "http://localhost:18080"
+const TailScale_Server = "http://100.82.164.33:18080"; 
+
 document.getElementById("Send_Button").addEventListener("click", async function()
 {
     const YT_URL = document.getElementById("videoURL").value;
 
-    //Display/Hidden feature 
+        //Display/Hidden feature 
 
-    const ErrorMsg = document.getElementById("error_msg");
-    ErrorMsg.classList.add("hidden");
+        const ErrorMsg = document.getElementById("error_msg");
+        ErrorMsg.classList.add("hidden");
 
-    const Container = document.getElementById("Container");
-    const loading_status = document.getElementById("loading_status");
-    
-    //Display & Hidden phase 1: Hide the Container and loading status
+        const Container = document.getElementById("Container");
+        const loading_status = document.getElementById("Loading_status");
+        
+        
+        //Display & Hidden phase 1: Hide the Container and loading status
 
-    Container.classList.add("hidden");            
-    loading_status.classList.remove("hidden");
+        Container.classList.add("hidden");            
+        loading_status.classList.remove("hidden");
 
+        document.getElementById("Loading_msg").textContent = "Processing...";
     try 
     {
-        const response = await fetch("http://localhost:18080/getVideo", 
+        const response = await fetch(TailScale_Server + "/getVideo", 
             {
                 method: "POST",
                 body: YT_URL
@@ -27,13 +33,13 @@ document.getElementById("Send_Button").addEventListener("click", async function(
 
         const data = await response.json();
 
-        document.getElementById("title").textContent = data.title;
-        document.getElementById("thumbnail").src = data.thumbnail;
+            document.getElementById("title").textContent = data.title;
+            document.getElementById("thumbnail").src = data.thumbnail;
 
-    //Display & Hidden phase 2: Hide the loading status, display the Container
+        //Display & Hidden phase 2: Hide the loading status, display the Container
 
-        Container.classList.remove("hidden");            
-        loading_status.classList.add("hidden");
+            Container.classList.remove("hidden");            
+            loading_status.classList.add("hidden");
 
     }
     catch(error)
@@ -50,22 +56,38 @@ document.getElementById("Send_Button").addEventListener("click", async function(
 });
 
 document.getElementById("Download_Button").addEventListener("click", async function()
-    {
-        const YT_URL = document.getElementById("videoURL").value;
-        const Order = document.getElementById("Menu").value;
+{
+    const YT_URL = document.getElementById("videoURL").value;
+    const Order = document.getElementById("Menu").value;
 
-        const response = await fetch("http://localhost:18080/download?quality=" + Order, 
+        //Display & Hidden phase 3 : Show loading status and change the Loading message
+
+        const loading_status = document.getElementById("Loading_status");
+        const loading_msg = document.getElementById("Loading_msg");
+
+        document.getElementById("Loading_msg").textContent = "Cooking...";
+        loading_status.classList.remove("hidden");
+    
+        const response = await fetch(TailScale_Server + "/download?quality=" + Order, 
         {
             method: "POST",
             body: YT_URL
         });
 
+    try {
+
         const fileName = await response.text();
         console.log("fileName:", fileName);
         const waiter = document.createElement("a"); // a = anchor, used to have download link
-        waiter.href = "http://localhost:18080/file/" + fileName;
+        waiter.href = TailScale_Server + "/file/" + fileName;
         waiter.download = fileName;
         document.body.appendChild(waiter);
         waiter.click();
         waiter.remove();
-    }); 
+    }  
+    finally
+    {
+        //Display & Hidden phase 4 : Hide the loading status. End the fucking Boss Fight
+        loading_status.classList.add("hidden");
+    }
+}); 

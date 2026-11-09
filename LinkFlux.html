@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkFlux</title>
-    <link rel = "stylesheet" href="LinkFlux.css">
+    <link rel="stylesheet" href="LinkFlux.css">
     </head>
 <body>
 
@@ -39,10 +39,10 @@
             <!-- Input Link Area -->
 
     <div class="Input_Bar" id="Main_Page">
-        <span id="icon">🔗</span>
+        <span id="chain_icon">🔗</span>
         <input id="videoURL" type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
         <button id="Send_Button" type="button">
-        <span class="search_video">🔍︎</span>Get Video</button>
+        <img src="assets/Icons/Magnifying_Glass.svg">Get Video</button> 
     </div>
 
             <!-- Show user video Area -->
@@ -62,10 +62,10 @@
             Ready to Download
         </div>
         <!-- Title -->
-    <h3 id="title"></h3>
+        <h3 id="title"></h3>
     
         <!-- Dividing line -->
-    <hr class="divider">
+        <hr class="divider">
 
             <!-- Menu Select Area -->
 
@@ -77,7 +77,7 @@
                 <option value="mp3">MP3ㆍAudio</option>
                 <option value="thumbnail">Thumbnail</option>
             </select>
-            <button id="Download_Button" type="button">
+            <button id="Download_Button" type="button" class="Download_Button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                 </svg>
@@ -85,10 +85,12 @@
         </div>
     </div>    
 </section>
-        <!-- Loading Status -->
-    <div class="Loading hidden" id ="loading_status">
+
+            <!-- Loading Status -->
+             
+    <div class="Loading hidden" id ="Loading_status">
         <div class="spinner"></div>
-        <h1>Processing...</h1>
+        <h1 id ="Loading_msg">Processing...</h1>
     </div>
         <!-- Error -->
     <div class="Error_msg hidden" id="error_msg">
@@ -142,7 +144,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- Footer -->
   
